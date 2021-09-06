@@ -4,7 +4,7 @@ import datetime
 def carregar_arquivo_para_lista(nome_arquivo)->list:
     """
     Função recebe o nome de um arquivo csv e retorna a lista 
-    de tuplas com 
+    de tuplas
 
     Args:
         nome_arquivo (string): Nome do arquivo CSV
