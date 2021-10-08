@@ -31,14 +31,6 @@ class ContaPessoaJuridica(Conta):
         return super().saque(valor, error_msg)
 
 
-    def deposito(self, valor):
-        super().deposito(valor)
-
-
-    def get_extrato(self):
-        return super().get_extrato()
-
-
     def __str__(self):
         return f'Conta PJ:{self.nome},saldo={self.saldo}'
 

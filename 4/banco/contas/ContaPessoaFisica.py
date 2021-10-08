@@ -29,14 +29,6 @@ class ContaPessoaFisica(Conta):
         return super().saque(valor, error_msg)
 
 
-    def deposito(self, valor):
-        super().deposito(valor)
-
-
-    def get_extrato(self):
-        return super().get_extrato()
-
-
     def __str__(self):
         return "Conta PF:" + self.nome + ",saldo=" + str(self.saldo)
 

@@ -31,6 +31,9 @@ class Conta:
 
         Args:
             valor (float ou int): Valor positivo do saque
+            error_msg (str): 
+                Recebe mensagem de erro especifica de cada conta
+                para exibir caso ocorra algo de errado
 
         Raises:
             ValueError: Erro ocorre quando é informado valor negativo.
@@ -69,7 +72,7 @@ class Conta:
         raise TypeError('O depósito precisa ser numérico')
 
 
-    def get_extrato(self):
+    def get_extrato(self)->list[tuple]:
         """
         Retorna a lista dos saques e depósitos feitos na conta.
 
