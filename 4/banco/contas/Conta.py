@@ -38,7 +38,6 @@ class Conta:
 
         Returns:
             Float: Valor do saque realizado.
-            'Valor do saque supera seu saldo e seu limite'
         """
         if isinstance(valor, (float, int)):
             if valor > (self.saldo + self.limite):

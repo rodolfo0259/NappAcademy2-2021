@@ -25,60 +25,18 @@ class ContaPessoaJuridica(Conta):
         super(ContaPessoaJuridica, self).__init__(**kwargs)
         self.limite = kwargs.get('limite', 1500)
 
-
-    def deposito(self, saldo_deposito):
-        """
-        Processa o saldo depositado para a Conta e adiciona ao extrato
-
-        Args:
-            Valor a ser depositado: int ou float
-        
-        Raises:
-            TypeError:  Valor precisa ser numerico
-            ValueError: Valor negativo
-        """
-        if type(saldo_deposito) == float or type(saldo_deposito) == int:
-            pass
-        else:
-            raise TypeError('O depósito precisa ser numérico')
-
-        if saldo_deposito <= 0:
-            raise ValueError('Valor do depósito precisa ser maior que zero')
-        
-        self.saldo += saldo_deposito
-        self.extrato.append(('D', saldo_deposito))
-
     
-    def saque(self, saldo_saque):
-        """
-        Processa o saldo retirado(saque) da Conta e adiciona ao extrato
-
-        Args:
-            Valor a ser saquado: int ou float
-        
-        Raises:
-            TypeError:  Valor precisa ser numerico
-            ValueError: Valor acima do limite
-        """
-        if type(saldo_saque) == float or type(saldo_saque) == int:
-            pass
-        else:
-            raise TypeError('O valor do saque precisa ser numérico')
-
-        if saldo_saque > (self.saldo+self.limite):
-            raise ValueError('Valor do saque supera seu saldo e seu limite')
-
-        self.saldo -= saldo_saque
-        self.extrato.append(('S', saldo_saque))
-        return saldo_saque
+    def saque(self, valor):
+        error_msg = 'Valor do saque supera seu saldo e seu limite'
+        return super().saque(valor, error_msg)
 
 
-    def get_extrato(self)->list:
-        """
-        Retorna a lista dos extratos da conta
-        """
-        return self.extrato
+    def deposito(self, valor):
+        super().deposito(valor)
 
+
+    def get_extrato(self):
+        return super().get_extrato()
 
 
     def __str__(self):

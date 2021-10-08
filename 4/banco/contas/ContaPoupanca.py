@@ -29,17 +29,8 @@ class ContaPoupanca(Conta):
       super().deposito(valor)
 
    
-   # def get_extrato(self):
-   #    super().get_extrato()
-
    def get_extrato(self):
-      """
-      Retorna a lista dos saques e depósitos feitos na conta.
-
-      Returns:
-         List: Lista de operações
-      """
-      return self.extrato
+      return super().get_extrato()
 
 
    def rendimento_aniversario(self, juros):
@@ -60,8 +51,3 @@ class ContaPoupanca(Conta):
 
    def __repr__(self):
       return f'Conta Poupança:{self.nome}, saldo={self.saldo}'
-
-   
-
-# aa = ContaPoupanca(nome='asdf', cpf='123.123.123-00', saldo=10)
-# aa.rendimento_aniversario(0.5)
