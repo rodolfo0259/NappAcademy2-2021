@@ -1,5 +1,4 @@
 from banco.contas.Conta import Conta
-#from Conta import Conta
 
 class ContaPoupanca(Conta):
    def __init__(self,  **kwargs):
