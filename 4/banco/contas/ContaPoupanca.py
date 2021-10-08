@@ -21,11 +21,15 @@ class ContaPoupanca(Conta):
 
    
    def saque(self, valor):
+      """
+      Realiza o saque da conta, porem com mensagem customizada
+      para a conta Poupança caso apresente erros
+      """
       error_msg = 'Valor do saque supera seu saldo.'
       return super().saque(valor, error_msg)
 
 
-   def rendimento_aniversario(self, juros):
+   def rendimento_aniversario(self, juros: float)-> None:
       """
       Ira calcular o rendimento do juros(porcentagem)
       sobre o valor em conta(saldo)

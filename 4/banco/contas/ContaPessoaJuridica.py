@@ -25,11 +25,6 @@ class ContaPessoaJuridica(Conta):
         super(ContaPessoaJuridica, self).__init__(**kwargs)
         self.limite = kwargs.get('limite', 1500)
 
-    
-    def saque(self, valor):
-        error_msg = 'Valor do saque supera seu saldo e seu limite'
-        return super().saque(valor, error_msg)
-
 
     def __str__(self):
         return f'Conta PJ:{self.nome},saldo={self.saldo}'

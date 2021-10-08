@@ -24,7 +24,7 @@ class Conta:
         self.extrato.append(('I', saldo))
 
 
-    def saque(self, valor, error_msg):
+    def saque(self, valor, error_msg: str='Valor do saque supera seu saldo e seu limite'):
         """
         Método para realizar saque.
         Este método suporta somente números maiores que zero.
@@ -32,8 +32,10 @@ class Conta:
         Args:
             valor (float ou int): Valor positivo do saque
             error_msg (str): 
-                Recebe mensagem de erro especifica de cada conta
-                para exibir caso ocorra algo de errado
+                Recebe mensagem de erro especifica/customizada
+                de cada conta caso exista, senão será usado a 
+                frase padrão para exibir caso ocorra 
+                algo de errado
 
         Raises:
             ValueError: Erro ocorre quando é informado valor negativo.
@@ -72,7 +74,7 @@ class Conta:
         raise TypeError('O depósito precisa ser numérico')
 
 
-    def get_extrato(self)->list[tuple]:
+    def get_extrato(self)->list:
         """
         Retorna a lista dos saques e depósitos feitos na conta.
 
