@@ -22,9 +22,10 @@ class Conta:
             raise ValueError('Saldo negativo')
         self.saldo = saldo
         self.extrato.append(('I', saldo))
+        self.error_msg = 'Valor do saque supera seu saldo e seu limite'
 
 
-    def saque(self, valor, error_msg: str='Valor do saque supera seu saldo e seu limite'):
+    def saque(self, valor):
         """
         Método para realizar saque.
         Este método suporta somente números maiores que zero.
@@ -46,7 +47,7 @@ class Conta:
         """
         if isinstance(valor, (float, int)):
             if valor > (self.saldo + self.limite):
-                raise ValueError(error_msg)
+                raise ValueError(self.error_msg)
             self.saldo = self.saldo - valor
             self.extrato.append(('S', valor))
             return valor

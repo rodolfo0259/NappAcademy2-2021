@@ -17,15 +17,7 @@ class ContaPoupanca(Conta):
          raise ValueError('CPF inválido')
       super(ContaPoupanca, self).__init__(**kwargs)
       self.limite = kwargs.get('limite', 0)
-
-   
-   def saque(self, valor):
-      """
-      Realiza o saque da conta, porem com mensagem customizada
-      para a conta Poupança caso apresente erros
-      """
-      error_msg = 'Valor do saque supera seu saldo.'
-      return super().saque(valor, error_msg)
+      self.error_msg = 'Valor do saque supera seu saldo.'
 
 
    def rendimento_aniversario(self, juros: float)-> None:
