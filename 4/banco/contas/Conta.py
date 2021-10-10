@@ -2,6 +2,8 @@ class Conta:
     def __init__(self, **kwargs):
         """
         Construtor da classe Conta.
+        Possui por padrão uma mensagem de erro para saque (saque_error_msg)
+
         Recebe via kwargs :
         - nome
         - limite
@@ -22,7 +24,7 @@ class Conta:
             raise ValueError('Saldo negativo')
         self.saldo = saldo
         self.extrato.append(('I', saldo))
-        self.error_msg = 'Valor do saque supera seu saldo e seu limite'
+        self.saque_error_msg = 'Valor do saque supera seu saldo e seu limite'
 
 
     def saque(self, valor):
@@ -32,11 +34,6 @@ class Conta:
 
         Args:
             valor (float ou int): Valor positivo do saque
-            error_msg (str): 
-                Recebe mensagem de erro especifica/customizada
-                de cada conta caso exista, senão será usado a 
-                frase padrão para exibir caso ocorra 
-                algo de errado
 
         Raises:
             ValueError: Erro ocorre quando é informado valor negativo.
@@ -47,7 +44,7 @@ class Conta:
         """
         if isinstance(valor, (float, int)):
             if valor > (self.saldo + self.limite):
-                raise ValueError(self.error_msg)
+                raise ValueError(self.saque_error_msg)
             self.saldo = self.saldo - valor
             self.extrato.append(('S', valor))
             return valor
