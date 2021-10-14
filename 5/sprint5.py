@@ -2,18 +2,19 @@ import os
 import glob
 import csv
 
-def todos_arquivos_txt()->list:
-    ''' Encontra todos os arquivos txt dentro da pasta e subpastas '''
-    looking_for = '**/*.txt'
+def find_all_files(extension)->list:
+    ''' Encontra todos os arquivos de determinada extensao dentro da pasta e subpastas '''
+    looking_for = f'**/*.{extension}'
     matched = glob.glob(looking_for, recursive=True)
     return matched
+
+
+def todos_arquivos_txt()->list:
+    return find_all_files('txt')
 
 
 def todos_arquivos_csv()->list:
-    ''' Encontra todos os arquivos csv dentro da pasta e subpastas '''
-    looking_for = '**/*.csv'
-    matched = glob.glob(looking_for, recursive=True)
-    return matched
+    return find_all_files('csv')
 
 
 def carregar_arquivo_txt_para_lista(nome_arquivo)->list:
@@ -40,64 +41,47 @@ def carregar_arquivo_csv_para_lista(nome_arquivo)->list:
     return lista[1:]
 
 
+def find_pattern(lista: list, string_pattern: str, column_index: int)->list:
+    ''' Encontra todos os registros onde há o padrao string e ira adiciona-los em uma lista 
+    Args:
+        lista: uma lista de tuples contem os registros
+        string_pattern: padrao string para ser encontrado na lista
+        column_index: numero da coluna/campo onde o padrao deve ser procurado
+    Return:
+        Lista com tuples com registros encontrados
+    '''
+    sublista = list()
+    for tupla in lista:
+        if string_pattern in tupla[column_index]:
+            sublista.append(tupla)
+    return sublista
+
+
 def buscar_trecho_nome(lista, trecho_nome)->list:
-    ''' Encontra todos os registros onde há o padrao string no campo 'Nome' e adiciona-os em uma lista 
+    return find_pattern(lista, trecho_nome, 0)
+
+
+def buscar_cpf(lista, cpf)->list:
+    return find_pattern(lista, cpf, 1)
+
+
+def buscar_email(lista, email)->list:
+    return find_pattern(lista, email, 2)
+
+
+''' funcoes com nomes diferentes, porem mesma funcionalidade '''
+buscar_nome = buscar_trecho_nome
+buscar_trecho_cpf = buscar_cpf
+buscar_dominio_email = buscar_email
+
+
+def buscar_trecho_nome_email(lista, trecho_nome, email)->list:
+    ''' Encontra todos os registros onde há o padrao string no campo 'Nome' e no campo email
+    e ira adiciona-los em uma lista 
     Args:
         lista: uma lista de tuples contem os registros
-        trecho_nome: padrao string para ser encontrado na lista
-    Return:
-        Lista com tuples com registros encontrados
-    '''
-    sublista = list()
-    for tupla in lista:
-        if trecho_nome in tupla[0]:
-            sublista.append(tupla)
-    return sublista
-
-
-def buscar_nome(lista, trecho_nome):
-    ''' Encontra um nome especifico dentro da lista de tuples '''
-    return buscar_trecho_nome(lista, trecho_nome)
-
-def buscar_email(lista, email):
-    ''' Encontra todos os registros onde há o padrao string no campo 'Nome' e adiciona-os em uma lista 
-    Args:
-        lista: uma lista de tuples contem os registros
-        trecho_nome: padrao string para ser encontrado na lista
-    Return:
-        Lista com tuples com registros encontrados
-    '''
-    sublista = list()
-    for tupla in lista:
-        if email in tupla[2]:
-            sublista.append(tupla)
-    return sublista
-
-def buscar_cpf(lista, cpf):
-    ''' Encontra todos os registros onde há o padrao string no campo 'Nome' e adiciona-os em uma lista 
-    Args:
-        lista: uma lista de tuples contem os registros
-        trecho_nome: padrao string para ser encontrado na lista
-    Return:
-        Lista com tuples com registros encontrados
-    '''
-    sublista = list()
-    for tupla in lista:
-        if cpf in tupla[1]:
-            sublista.append(tupla)
-    return sublista
-
-def buscar_trecho_cpf(lista, trecho_cpf):
-    return buscar_cpf(lista, trecho_cpf)
-
-def buscar_dominio_email(lista, dominio):
-    return buscar_email(lista, dominio)
-
-def buscar_trecho_nome_email(lista, trecho_nome, email):
-    ''' Encontra todos os registros onde há o padrao string no campo 'Nome' e adiciona-os em uma lista 
-    Args:
-        lista: uma lista de tuples contem os registros
-        trecho_nome: padrao string para ser encontrado na lista
+        trecho_nome: padrao string do nome a ser encontrado
+        email: padrao string de email a ser encontrado
     Return:
         Lista com tuples com registros encontrados
     '''
