@@ -41,32 +41,54 @@ def carregar_arquivo_csv_para_lista(nome_arquivo)->list:
     return lista[1:]
 
 
-def find_pattern(lista: list, string_pattern: str, column_index: int)->list:
-    ''' Encontra todos os registros onde há o padrao string e ira adiciona-los em uma lista 
+def find_pattern(lista: list, patterns: dict)->list:
+    ''' 
+    Encontra todos os registros onde há o padrao string fornecido e 
+    ira adiciona-los em uma lista 
     Args:
-        lista: uma lista de tuples contem os registros
-        string_pattern: padrao string para ser encontrado na lista
-        column_index: numero da coluna/campo onde o padrao deve ser procurado
+        lista: uma lista de tuplas contem os registros
+        patterns: 
+            dicionario com a posicao da coluna/campo e 
+            padrao string para ser encontrado no determinado campo
     Return:
         Lista com tuples com registros encontrados
     '''
-    sublista = list()
-    for tupla in lista:
-        if string_pattern in tupla[column_index]:
-            sublista.append(tupla)
-    return sublista
+    pattern_list = [None, None, None]
+    for i in list(patterns.keys()):
+        pattern_list[i] = patterns[i]
+
+    truth_tuple = [bool(x) for x in pattern_list]
+
+    match_list = list()
+    for item in lista:
+        temp_contain = list()
+        for i in range(len(truth_tuple)):
+            if truth_tuple[i]:
+                if pattern_list[i] in item[i]:
+                    temp_contain.append(True)
+            else:
+                temp_contain.append(False)
+
+        if temp_contain == truth_tuple:
+            match_list.append(item)
+    
+    return match_list
 
 
 def buscar_trecho_nome(lista, trecho_nome)->list:
-    return find_pattern(lista, trecho_nome, 0)
+    return find_pattern(lista, {0: trecho_nome})
 
 
 def buscar_cpf(lista, cpf)->list:
-    return find_pattern(lista, cpf, 1)
+    return find_pattern(lista, {1: cpf})
 
 
 def buscar_email(lista, email)->list:
-    return find_pattern(lista, email, 2)
+    return find_pattern(lista, {2: email})
+
+
+def buscar_trecho_nome_email(lista, trecho_nome, email)->list:
+    return find_pattern(lista, {0: trecho_nome, 2: email})
 
 
 ''' funcoes com nomes diferentes, porem mesma funcionalidade '''
@@ -75,33 +97,24 @@ buscar_trecho_cpf = buscar_cpf
 buscar_dominio_email = buscar_email
 
 
-def buscar_trecho_nome_email(lista, trecho_nome, email)->list:
-    ''' Encontra todos os registros onde há o padrao string no campo 'Nome' e no campo email
-    e ira adiciona-los em uma lista 
-    Args:
-        lista: uma lista de tuples contem os registros
-        trecho_nome: padrao string do nome a ser encontrado
-        email: padrao string de email a ser encontrado
-    Return:
-        Lista com tuples com registros encontrados
+def gravar_lista_para_arquivo_csv(lista: list, nome_arquivo: str)->None:
     '''
-    sublista = list()
-    for tupla in lista:
-        if trecho_nome in tupla[0] and email in tupla[2]:
-            sublista.append(tupla)
-    return sublista
-
-
-def gravar_lista_para_arquivo_csv(lista, nome_arquivo):
+    Ira transformar a lista em um arquivos csv no caminho especificado
+    por padrao dentro de ./relatorios
+    Args:
+        lista: lista de tuples
+        nome_arquivo: caminho com nome do arquivo
+    '''
     with open(nome_arquivo,'w') as result_file:
         wr = csv.writer(result_file, dialect='excel')
         wr.writerow(['Nome', 'CPF', 'E-mail'])
         wr.writerows(lista)
 
-'''
+
 if __name__ == '__main__':
-    root_dir = os.getcwd()
-    new_dir = os.getcwd() + '/arquivos/'
+    current_path = os.path.dirname(os.path.abspath(__file__))
+
+    new_dir = current_path + '/arquivos/'
     os.chdir(new_dir)
     ocorrencias = []
     for arquivo in todos_arquivos_txt():
@@ -110,8 +123,8 @@ if __name__ == '__main__':
         ocorrencias += carregar_arquivo_csv_para_lista(arquivo)
     dominio_ig_1 = buscar_dominio_email(ocorrencias, 'ig.com.br')
 
-    os.chdir(root_dir)    
-    new_dir = os.getcwd() + '/arquivos/diretorio6'
+    os.chdir(current_path)    
+    new_dir = current_path + '/arquivos/diretorio6'
     os.chdir(new_dir)
     ocorrencias = []
     for arquivo in todos_arquivos_txt():
@@ -120,12 +133,8 @@ if __name__ == '__main__':
         ocorrencias += carregar_arquivo_csv_para_lista(arquivo)
     dominio_ig_2 = buscar_dominio_email(ocorrencias, 'ig.com.br')
     
-    # NESTE TRECHO, ALTERAR O DIRETÓRIO DE TRABALHO
-    # Os arquivos gerados com as funções abaixo devem gerar arquivos
-    # dentro do diretório relatorio. Este diretório deve ser criado via script também
-    
-    gravar_lista_para_arquivo_csv(dominio_ig_1, 'dominio_ig_all.csv')
-    gravar_lista_para_arquivo_csv(dominio_ig_2, 'dominio_ig_dir6.csv')
-'''
+    if not os.path.isdir(f'{current_path}/relatorio'):
+        os.mkdir(f'{current_path}/relatorio')
 
-print(buscar_trecho_nome([('aac', 'something', 'anything')], 'abc'))
+    gravar_lista_para_arquivo_csv(dominio_ig_1, f'{current_path}/relatorio/dominio_ig_all.csv')
+    gravar_lista_para_arquivo_csv(dominio_ig_2, f'{current_path}/relatorio/dominio_ig_dir6.csv')
