@@ -1,0 +1,126 @@
+\documentclass{article}
+
+\usepackage{graphicx}
+
+\graphicspath{ {./prints} }
+\usepackage[section]{placeins}
+\usepackage[T1]{fontenc}
+
+\author{Rodolfo Contieri Baldin}
+\title{NappAcademy Sprint6 Exercicios}
+\date{}
+
+\begin{document}
+\maketitle
+
+
+\newpage
+\section{Protocolo FTP}
+
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.9\linewidth,height=.8\textheight,keepaspectratio]{print1-1_Concetado.png}
+    \caption{Print 1-1}
+\end{figure}
+
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.9\linewidth,height=.8\textheight,keepaspectratio]{print3-1-1_help(ftp)_methods.png}
+    \caption{Print 3-1-1 FTP methods}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.9\linewidth,height=.8\textheight,keepaspectratio]{print3-1-1_README_nao_gerado_ftp_parte1.png}
+    \caption{Print 3-1-1 executando parte1/ftp.py}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.9\linewidth,height=.8\textheight,keepaspectratio]{print3-1-1_README_gerado_ftp_Pratica.png}
+    \caption{Print 3-1-1 executando Prática/ftp.py}
+\end{figure}
+
+\newpage
+\section{Consumo API}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.9\linewidth,height=.8\textheight,keepaspectratio]{print4-1_json.png}
+    \caption{Print 4-1 response in JSON}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.9\linewidth,height=.8\textheight,keepaspectratio]{print4-2_xmldata.png}
+    \caption{Print 4-2 response in XML}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.9\linewidth,height=.8\textheight,keepaspectratio]{print4-3_piped.png}
+    \caption{Print 4-3 response in PIPED}
+\end{figure}
+
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.9\linewidth,height=.8\textheight,keepaspectratio]{print5-1_Avenida.png}
+    \caption{Print 5-1 Descobrir se é uma avenida}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.9\linewidth,height=.8\textheight,keepaspectratio]{print7-1_SPdados20210820.png}
+    \caption{Print 7-1 dados de SP em 2021-08-20}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.9\linewidth,height=.8\textheight,keepaspectratio]{print8-1_paises_casos.png}
+    \caption{Print 8-1 casos em todos os paises}
+\end{figure}
+
+\newpage
+\section{Raspagem de Dados}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.9\linewidth,height=.7\textheight,keepaspectratio]{print9-1_link_status_code.png}
+    \caption{Print 9-1 request status de cada link}
+\end{figure}
+
+
+\newpage
+\section{Perguntas}
+
+\noindent
+\textbf{Pergunta 2.}\par
+Ocorreu comunicacao ?\newline
+
+-- Sim, durante a conexão e desconexão:
+
+"Concetado por ('127.0.0.1', 59540)"
+
+"Finalizando conexao do cliente ('127.0.0.1', 59540)"
+\newline
+
+\noindent
+\textbf{Pergunta 6.1.}\par
+Qual o tipo de dado de dados{\_}SP ?\newline
+
+print(type(dados{\_}SP)) = <class 'dict'>
+\newline
+
+\noindent
+\textbf{ Pergunta 10.}\par
+Um dos status\_code apresenta número 999. Qual é esta URL ? Pesquise na internet e explique porque isso Ocorreu \newline
+
+(999, 'https://www.linkedin.com/company/nappsolutionsbr/')\par
+
+O codigo http 999 == request denied\par
+A url do Linkedin não aceita esse tipo de requests, é necessario o uso da REST API especifica deles: python3-linkedin\par
+
+\end{document}
