@@ -13,6 +13,7 @@ Tambem há um campo calculado: Total de Views/dias desde lancamento do video, é
 ## **Passos de instalação/uso**
 
 1. Clonar repositório
+2. Ir para diretório 7/
 2. Adicionar os IDs dos canais do Youtube no settings.ini
 3. Adicionar sua Google API key no setting.ini
 4. Instalar as dependencias
@@ -20,6 +21,7 @@ Tambem há um campo calculado: Total de Views/dias desde lancamento do video, é
 
 ```
 git clone https://github.com/rodolfo0259/NappAcademy2-2021.git
+cd 7/
 pip install -r requirements.txt 
 ```
 
