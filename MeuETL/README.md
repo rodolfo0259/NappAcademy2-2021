@@ -29,5 +29,5 @@ No settings.ini o campo CHANNEL_ID, pode conter mais de um id de canal, separado
 Exemplo de dados coletados usando o ótimo canal do Baka Gaijin como exemplo:
 
 <p align="center">
-  <img width="470" src="imgs/BakaGaijin_videos_YT_API.png">
+  <img width="980" src="imgs/BakaGaijin_videos_YT_API.png">
 </p>
