@@ -12,7 +12,7 @@ Tambem há um campo calculado: Total de Views/dias desde lancamento do video, é
 
 ## **Passos de instalação/uso**
 
-1. Clonar repositório e entrar neste diretório 7/
+1. Clonar repositório e entrar neste diretório MeuETL/
 2. Adicionar os IDs dos canais do Youtube no settings.ini
 3. Adicionar sua Google API key no setting.ini
 4. Instalar as dependencias
@@ -25,3 +25,9 @@ pip install -r requirements.txt
 ```
 
 No settings.ini o campo CHANNEL_ID, pode conter mais de um id de canal, separado por ","
+
+Exemplo de dados coletados usando o ótimo canal do Baka Gaijin como exemplo:
+
+<p align="center">
+  <img width="470" src="imgs/BakaGaijin_videos_YT_API.png">
+</p>
