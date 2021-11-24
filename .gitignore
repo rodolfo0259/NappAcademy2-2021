@@ -2,3 +2,10 @@
 *.csv
 *.txt
 *.pyc
+*.zip
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.png
+*.gz
