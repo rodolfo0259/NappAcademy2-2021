@@ -54,7 +54,7 @@ def get_video_ids(channel_id: str)->list:
                 video_ids.append(videoId)
 
         if nextPageToken:
-            url = f'https://www.googleapis.com/youtube/v3/playlistItems?playlistId={playlist_id}&pageToken={nextPageToken}&key={KEY}&part=contentDetails&maxResults=50'
+            url = f'{url}&pageToken={nextPageToken}'
         else:
             break
     return video_ids
@@ -121,19 +121,24 @@ def parse_video_data(video_data:dict)->list:
 
     parsed_list.append(final_duration[:-1]) ## video_duration
 
-    ### views, like, dislike, favorite, comments
+    ## statistica sobre os videos
+    ## videos com comentarios bloqueado vira None
+    itens = ['viewCount', 'likeCount', 'dislikeCount', 'favoriteCount', 'commentCount']
     data = video_data['statistics']
-    for k, v in data.items():
-        parsed_list.append(v)
+    for field in itens:
+        parsed_list.append(data.get(field,'None'))
 
     ## Views/days since video release
-    view_day = int(data['viewCount'])/int((datetime.today() - video_date ).days)
+    view_day = int(data['viewCount'])/(int((datetime.today() - video_date ).days)+1)
     parsed_list.append(round(view_day, 3))
 
     return parsed_list
 
 
 def generate_csv(video_data_list:list)->None:
+    '''
+    Gera um csv usando o nome do canal com os dados coletados
+    '''
     headers=['Video_id', 'Title', 'Publish_date', 'Duration', 'Views', 'Likes', 'Dislikes', 'FavoriteCount', 'CommentCount', 'View/day']
     df = pd.DataFrame(video_data_list, columns=headers)
     df.to_csv(f'channel_{channel_title}_statistics.csv', sep=';', index=False)
